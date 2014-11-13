@@ -1,18 +1,18 @@
 <?php
 
-//
-// Set the error reporting.
-//
-error_reporting(-1);              // Report all type of errors
-ini_set('display_errors', 1);     // Display all errors
-ini_set('output_buffering', 0);   // Do not buffer outputs, write directly
-
-
-//
 // Get required files
-//
+require "../vendor/mos/cdatabase/src/Database/TSQLQueryBuilderBasic.php";
+require "../vendor/mos/cdatabase/src/Database/CDatabaseBasic.php";
 require "../src/htmltable/CHTMLTable.php";
-require "../src/Database/TSQLQueryBuilderBasic.php";
-require "../src/Database/CDatabaseBasic.php";
 
+// Create a new object
+$table = new rcus\HTMLTable\CHTMLTable();
+
+// Carry out som tests, $table must exist
+$table->setOptions($options);
+$table->connect();
+//$table->connect('debug');
+
+// Create tabledata
+require __DIR__ . '/testCreateTableData.php';
 

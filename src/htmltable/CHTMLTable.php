@@ -1,20 +1,20 @@
 <?php
 
 namespace rcus\HTMLTable;
+use Mos\Database\CDatabaseBasic;
 
 /**
  * Makes nice tables in HTML with pagination.
  *
  */
-class CHTMLTable
+class CHTMLTable extends CDatabaseBasic
 {
-    use Mos\Database\CDatabaseBasic;
 
     /**
      * Members
      */
-    private $paginationDefault = 4;
-    private $paginationAlt     = array(2,4,8);
+    private $paginationDefault = 10;
+    private $paginationAlt     = array(5, 10, 25);
 
 
 
