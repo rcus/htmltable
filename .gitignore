@@ -1,6 +1,7 @@
 # Logs and databases 
 *.sqlite
 *.log
+.htsqlite.db
 
 
 # OS generated files 
