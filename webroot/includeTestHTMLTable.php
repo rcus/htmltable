@@ -14,5 +14,5 @@ $table->connect();
 //$table->connect('debug');
 
 // Create tabledata
-require __DIR__ . '/testCreateTableData.php';
+require __DIR__ . '/includeCreateTableData.php';
 

@@ -9,4 +9,4 @@ ini_set('output_buffering', 0);   // Do not buffer outputs, write directly
 $options = require "../vendor/mos/cdatabase/webroot/config_mysql.php";
 
 // MySQL-info is setted up, continue...
-require "testHTMLTable.php";
+require "includeTestHTMLTable.php";

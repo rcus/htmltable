@@ -14,4 +14,4 @@ if (!is_writable(__DIR__)) {
 $options = require "../vendor/mos/cdatabase/webroot/config_sqlite.php";
 
 // SQLite-info is setted up, continue...
-require "testHTMLTable.php";
+require "includeTestHTMLTable.php";
