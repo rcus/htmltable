@@ -94,8 +94,8 @@ About
 -----
 ###Requirements
 * PHP 5.3 or above
-* [Anax-MVC](https://github.com/mosbth/Anax-MVC)
 * [mos/cdatabase](https://github.com/mosbth/cdatabase)
+* [Anax-MVC](https://github.com/mosbth/Anax-MVC) (for use with Anax)
 
 ###To-do list
 * Specify which columns to order
@@ -104,7 +104,7 @@ About
 * Add some style (I know, it doesn't look that nice. But that's not a problem with your CSS-skills)
 
 ###Author
-Marcus Törnroth - m@rcus.se
+Marcus Törnroth (m@rcus.se)
 
 ###License
-HTMLTable is licensed under the MIT License - see the `LICENSE` file for details
+HTMLTable is licensed under the MIT License - see the `LICENSE.txt` file for details
