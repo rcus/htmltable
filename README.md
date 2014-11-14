@@ -9,7 +9,7 @@ Made for [Anax-MVC](https://github.com/mosbth/Anax-MVC) in the course [phpmvc](h
 Use with Anax
 -------------
 ###Install
-Add [rcus/htmltable](https://packagist.org/packages/rcus/htmltable) to your composer.json file like with `require`.
+Add [rcus/htmltable](https://packagist.org/packages/rcus/htmltable) to your composer.json file with `require`.
 
     "require": {
         "rcus/htmltable": "dev-master"
