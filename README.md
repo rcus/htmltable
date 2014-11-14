@@ -46,6 +46,8 @@ Start with create a basic ANAX pagecontroller. Include the config and create a s
 ###Include CDatabase
 [rcus/htmltable](https://packagist.org/packages/rcus/htmltable) require [mos/cdatabase](https://github.com/mosbth/cdatabase) and will install it for you.
 
+> Unfortunately, Composer can not manage dependencies with "dev-master" properly. If you receive an error message, open `composer.json` and add `"mos/cdatabase": "dev-master"` in `require`.
+
 You have to include [mos/cdatabase](https://github.com/mosbth/cdatabase) in Anax, either in current pagecontroller just before `// Create content for this page`, or in `config_with_app.php`.
 
     // Include database support
