@@ -36,28 +36,34 @@ class CHTMLTable extends CDatabaseBasic
     public function __construct($options=[])
     {
         parent::__construct($options);
+        parent::connect();
     }
 
 
     /**
-     * Set active table in choosen database.
+     * Set all table options.
      *
-     * @param string $name containing the name of the database table.
+     * @param string $name The name of the database table.
+     * @param array $cols Array to choose which columns to display.
+     * @param string $orderBy Set which column to order table.
+     * @param string $order Order column asc (default) or desc.
+     * @param boolean $pagination A boolean for set pagination on (default) or off.
      *
      * @return void
      */
-    public function setTableOptions($name, $cols, $orderBy=null, $order='')
+    public function setTableOptions($name, $cols, $orderBy=null, $order='', $pagination=true)
     {
         $this->setTableName($name);
         $this->setTableColumns($cols);
         $this->setOrderBy($orderBy, $order);
+        $this->setPaginationOn($pagination);
     }
 
 
     /**
      * Set active table in choosen database.
      *
-     * @param string $name containing the name of the database table.
+     * @param string $name The name of the database table.
      *
      * @return void
      */
@@ -70,7 +76,7 @@ class CHTMLTable extends CDatabaseBasic
     /**
      * Set columns from which data will be retrieved from.
      *
-     * @param array $cols containing the names of the columns in database table.
+     * @param array $cols Array to choose which columns to display.
      *
      * @return void
      */
@@ -81,10 +87,10 @@ class CHTMLTable extends CDatabaseBasic
 
 
     /**
-     * Set columns from which data will be retrieved from.
+     * Set column to order table.
      *
-     * @param string $orderBy the column which the table will be ordered by.
-     * @param string $order info for sort column asc (default) or desc.
+     * @param string $orderBy Set which column to order table.
+     * @param string $order Order column asc (default) or desc.
      *
      * @return void
      */
@@ -96,44 +102,24 @@ class CHTMLTable extends CDatabaseBasic
 
 
     /**
-     * Set columns from which data will be retrieved from.
+     * Turn pagination on/off.
      *
-     * @param string $orderBy the column which the table will be ordered by.
-     * @param string $order info for sort column asc or desc.
+     * @param boolean $pagination A boolean for set pagination on (default) or off.
      *
-     * @return string Complete table in HTML.
+     * @return void
      */
-    public function getHTML()
+    public function setPaginationOn($on=true)
     {
-        $this->setParams();
-        $html = $this->getItemOptions();
-        $html .= "<table>\n <tr>\n";
-        foreach ($this->tableColumns as $key => $value) {
-            $html .= "  <th>$key" . self::OrderLinks($value) . "</th>\n";
-        }
-        $html .= " </tr>\n";
-        foreach ($this->getRows() as $row) {
-            $html .= " <tr>\n";
-            foreach ($row as $value) {
-                $html .= "  <td>$value</td>\n";
-            }
-            $html .= " </tr>\n";
-        }
-        $html .= "</table>\n";
-        $html .= $this->getPagination();
-        return $html;
+        $this->pagination = $on;
     }
 
 
     /**
-     * Set columns from which data will be retrieved from.
+     * Set members from _GET and number of rows in database.
      *
-     * @param string $orderBy the column which the table will be ordered by.
-     * @param string $order info for sort column asc or desc.
-     *
-     * @return array Rows to show in table.
+     * @return void
      */
-    private function setParams()
+    private function setMembers()
     {
         if (isset($_GET['orderby'])) {
             if (isset($_GET['order'])) {
@@ -158,44 +144,88 @@ class CHTMLTable extends CDatabaseBasic
 
 
     /**
-     * Set columns from which data will be retrieved from.
+     * Call this method to get a HTMLtable.
      *
-     * @param string $orderBy the column which the table will be ordered by.
-     * @param string $order info for sort column asc or desc.
+     * @return string Complete table in HTML.
+     */
+    public function getHTML()
+    {
+        $this->setMembers();
+        $rows = $this->getRows();
+
+        $html = "<div class='htmltable'>\n";
+        if ($this->itemsInTable > 0) {
+            $html .= $this->getItemOptions();
+            $html .= " <table>\n  <tr>\n";
+            foreach ($this->tableColumns as $key => $value) {
+                $html .= "   <th>$key" . self::OrderLinks($value) . "</th>\n";
+            }
+            $html .= "  </tr>\n";
+            foreach ($rows as $row) {
+                $html .= "  <tr>\n";
+                foreach ($row as $value) {
+                    $html .= "   <td>$value</td>\n";
+                }
+                $html .= "  </tr>\n";
+            }
+            $html .= " </table>\n";
+            $html .= $this->getPagination();
+        } else {
+            $html .= " <p>There is no items to view :(</p>\n";
+        }
+        $html .= "</div>\n";
+        
+        return $html;
+    }
+
+
+    /**
+     * Get rows from the database to show in the table.
      *
      * @return array Rows to show in table.
      */
     private function getRows()
     {
-
         $this->select(implode(", ", $this->tableColumns))
             ->from($this->tableName);
         if ($this->orderBy) {
             $this->orderBy($this->orderBy.$this->order);
         }
-        if ($this->itemsPerPage && ($this->itemsInTable > $this->itemsPerPage)) {
+        if ($this->pagination && $this->itemsPerPage && ($this->itemsInTable > $this->itemsPerPage)) {
             $this->limit($this->itemsPerPage)
                 ->offset($this->startNo);
         }
-
         return $this->executeFetchAll();
     }
 
 
+    /**
+     * Will return item options for table.
+     *
+     * @return string The itemoptions part in HTML.
+     */
     private function getItemOptions()
     {
-        $html = "<div class='itemsPerPage'>\n <p>Visa antal rader: ";
+        if (!$this->pagination) {
+            return "";
+        }
+        $html = "<div class='itemsPerPage'>\n <p>Items per page: ";
         foreach ($this->itemsPerPageOption as $items) {
             $page = floor($this->startNo/$items+1);
             $page = ($page == 1) ? null : $page;
             $html .= "<a href='?" . http_build_query(array_merge($_GET, array("items"=>$items, "page"=>$page))) . "'>".$items."</a> ";
         }
-        $html .= "<a href='?" . http_build_query(array_merge($_GET, array("items"=>"all", "page"=>null))) . "'>Alla</a>";
+        $html .= "<a href='?" . http_build_query(array_merge($_GET, array("items"=>"all", "page"=>null))) . "'>All items</a>";
         $html .= "</p>\n</div>\n";
         return $html;
     }
 
 
+    /**
+     * Will return pagination for table.
+     *
+     * @return string The pagination part in HTML.
+     */
     private function getPagination()
     {
         if (!$this->pagination || !$this->itemsPerPage || ($this->itemsPerPage >= $this->itemsInTable)) {
@@ -225,13 +255,13 @@ class CHTMLTable extends CDatabaseBasic
     /**
      * Function to create links for sorting
      *
-     * @param string $column the name of the database column to sort by
-     * @return string with links to order by column.
+     * @param string $column The name of the database column to sort by.
+     *
+     * @return string Links to order by column.
      */
     private function OrderLinks($column) {
         $asc = http_build_query(array_merge($_GET, array("orderby"=>$column, "order"=>null)));
         $desc = http_build_query(array_merge($_GET, array("orderby"=>$column, "order"=>"desc")));
         return " <span class='orderby'><a href='?$asc'>&uarr;</a><a href='?$desc'>&darr;</a></span>";
     }
-
 }

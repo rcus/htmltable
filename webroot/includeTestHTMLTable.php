@@ -9,12 +9,10 @@ require "../vendor/mos/cdatabase/src/Database/CDatabaseBasic.php";
 require "../src/htmltable/CHTMLTable.php";
 
 // Create a new object
-$table = new rcus\HTMLTable\CHTMLTable();
+$table = new rcus\HTMLTable\CHTMLTable($options);
 
-// Carry out som tests, $table must exist
-$table->setOptions($options);
+// For debugging
 $table->setVerbose(false);
-$table->connect();
 //$table->connect('debug');
 
 // Create tabledata
@@ -28,6 +26,8 @@ $table->setTableOptions('test',
         'Efternamn'  => 'surname',
         'Födelsedag' => 'birthdate'
     ));
+
+//$table->setPaginationOn(false);
 
 // Get the HTML
 echo $table->getHTML();
