@@ -10,7 +10,7 @@ require __DIR__.'/config_with_app.php';
 // Include database support
 $di->setShared('db', function() {
     $db = new \Mos\Database\CDatabaseBasic();
-    $db->setOptions(require ANAX_APP_PATH . 'config/database_sqlite.php');
+    $db->setOptions(require  __DIR__.'/database_sqlite.php');
     $db->connect();
     return $db;
 });
@@ -38,7 +38,7 @@ $page .= $table->getHTML();
 $app->router->add('', function() use ($app, $di) {
   $app->theme->setTitle("HTMLtable");
   $app->views->add('me/page', [
-        'content' => $page;
+        'content' => $page
     ]);
 });
 

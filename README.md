@@ -51,12 +51,14 @@ You have to include [mos/cdatabase](https://github.com/mosbth/cdatabase) in Anax
     // Include database support
     $di->setShared('db', function() {
         $db = new \Mos\Database\CDatabaseBasic();
-        $db->setOptions(require ANAX_APP_PATH . 'config/database_sqlite.php');
+        $db->setOptions(require 'database_sqlite.php');
         $db->connect();
         return $db;
     });
 
 If you will use MySQL, change the filename above to `database_mysql.php`. Check your settings in the selected config file.
+
+Next step is to configure the SQLite-file and/or MySQL-file. If you need some help with this, please look further at [dbwebb.se](http://dbwebb.se/opensource/cdatabase#connect)
 
 ###Preparing the table
 First we have to create a table object. You can put all this stuff below just before `// Create content for this page`.

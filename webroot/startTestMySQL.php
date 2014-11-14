@@ -6,7 +6,7 @@ ini_set('display_errors', 1);     // Display all errors
 ini_set('output_buffering', 0);   // Do not buffer outputs, write directly
 
 // Read config file
-$options = require "../vendor/mos/cdatabase/webroot/config_mysql.php";
+$options = require "config_mysql.php";
 
 // MySQL-info is setted up, continue...
 require "includeTestHTMLTable.php";
