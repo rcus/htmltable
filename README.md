@@ -25,7 +25,9 @@ Tip: If you would like to test HTMLtable, copy `htmltable.php` from `/vendor/rcu
 First we have to create a table object in your pagecontroller.
 
     // Create a table object
-    $table = new rcus\HTMLTable\CHTMLTable();
+    $table = new rcus\HTMLTable\CHTMLTable(require ANAX_APP_PATH . 'config/database_sqlite.php');
+
+You maybe have to edit the path and filename for your configuration of the database. If you do not have any config-file, copy from `vendor/rcus/htmltable/webroot` and edit (if needed). Read more about this at [dbwebb](http://dbwebb.se/opensource/cdatabase#connect).
 
 If you would like to add some testdata to the table, add this:
 
