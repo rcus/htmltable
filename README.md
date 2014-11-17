@@ -11,20 +11,13 @@ Use with Anax
 ###Install
 Add [rcus/htmltable](https://packagist.org/packages/rcus/htmltable) to your composer.json file with `require`.
 
+    "minimum-stability": "dev",
     "require": {
         ...
         "rcus/htmltable": "dev-master"
     }
 
-Run `composer install --no-dev` or `composer update --no-dev` to get rcus/htmltable. [rcus/htmltable](https://packagist.org/packages/rcus/htmltable) require [mos/cdatabase](https://github.com/mosbth/cdatabase) and will install it for you.
-
-> Unfortunately, Composer can not get dependencies with "dev-master". If you receive an error message, edit your `composer.json` to:
-
-    "require": {
-        ...
-        "mos/cdatabase": "dev-master",
-        "rcus/htmltable": "dev-master"
-    }
+Run `composer install --no-dev` or `composer update --no-dev` to get rcus/htmltable. [rcus/htmltable](https://packagist.org/packages/rcus/htmltable) require [mos/cdatabase](https://github.com/mosbth/cdatabase) and will install it for you. While mos/cdatabase is a dev version you need to set `"minimum-stability": "dev"`.
 
 Tip: If you would like to test HTMLtable, copy `htmltable.php` from `/vendor/rcus/htmltable/webroot` to `/webroot` and point your browser to that file.
 
