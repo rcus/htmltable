@@ -8,15 +8,13 @@
 require 'config_with_app.php';
 
 // Database configuration
-$dsnfile = 'database_mysql.php';
+$dsnfile = 'database_sqlite.php';
 $options = (file_exists(ANAX_APP_PATH.'config/'.$dsnfile))
     ? require ANAX_APP_PATH.'config/'.$dsnfile
     : require ANAX_INSTALL_PATH.'vendor/rcus/htmltable/webroot/'.$dsnfile;
 
 // Create a table object
-$table = new rcus\HTMLTable\CHTMLTable();
-$table->setOptions($options);
-$table->connect();
+$table = new rcus\HTMLTable\CHTMLTable($options);
 
 // Create tabledata
 require ANAX_INSTALL_PATH . 'vendor/rcus/htmltable/webroot/includeCreateTableData.php';
