@@ -12,66 +12,31 @@ Use with Anax
 Add [rcus/htmltable](https://packagist.org/packages/rcus/htmltable) to your composer.json file with `require`.
 
     "require": {
+        ...
         "rcus/htmltable": "dev-master"
     }
 
-###Create a pagecontroller
-Start with create a basic ANAX pagecontroller. Include the config and create a start route.
+Run `composer install --no-dev` or `composer update --no-dev` to get rcus/htmltable. [rcus/htmltable](https://packagist.org/packages/rcus/htmltable) require [mos/cdatabase](https://github.com/mosbth/cdatabase) and will install it for you.
 
-    <?php
-    /**
-     * This is a Anax pagecontroller.
-     *
-     */
+> Unfortunately, Composer can not get dependencies with "dev-master". If you receive an error message, edit your `composer.json` to:
+>    "require": {
+>        ...
+>        "mos/cdatabase": "dev-master",
+>        "rcus/htmltable": "dev-master"
+>    }
 
-    // Get environment & autoloader.
-    require __DIR__.'/config_with_app.php';
+Tip: If you would like to test HTMLtable, copy `htmltable.php` from `/vendor/rcus/htmltable/webroot` to `/webroot` and point your browser to that file.
 
-    // Create content for this page
-    $page = "<h1>HTMLtable</h1>";
-
-    // Create route for this page
-    $app->router->add('', function() use ($app, $di) {
-      $app->theme->setTitle("HTMLtable");
-      $app->views->add('me/page', [
-            'content' => $page;
-        ]);
-    });
-
-
-    // Let these two lines to be last on the page
-    $app->router->handle();
-    $app->theme->render();
-
-###Include CDatabase
-[rcus/htmltable](https://packagist.org/packages/rcus/htmltable) require [mos/cdatabase](https://github.com/mosbth/cdatabase) and will install it for you.
-
-> Unfortunately, Composer can not manage dependencies with "dev-master" properly. If you receive an error message, open `composer.json` and add `"mos/cdatabase": "dev-master"` in `require`.
-
-You have to include [mos/cdatabase](https://github.com/mosbth/cdatabase) in Anax, either in current pagecontroller just before `// Create content for this page`, or in `config_with_app.php`.
-
-    // Include database support
-    $di->setShared('db', function() {
-        $db = new \Mos\Database\CDatabaseBasic();
-        $db->setOptions(require 'database_sqlite.php');
-        $db->connect();
-        return $db;
-    });
-
-If you will use MySQL, change the filename above to `database_mysql.php`. Check your settings in the selected config file.
-
-Next step is to configure the SQLite-file and/or MySQL-file. If you need some help with this, please look further at [dbwebb.se](http://dbwebb.se/opensource/cdatabase#connect)
-
-###Preparing the table
-First we have to create a table object. You can put all this stuff below just before `// Create content for this page`.
+###Usage
+First we have to create a table object in your pagecontroller.
 
     // Create a table object
     $table = new rcus\HTMLTable\CHTMLTable();
 
-If you would like to add some data to the table, add this:
+If you would like to add some testdata to the table, add this:
 
     // Create tabledata
-    require __DIR__ . '/includeCreateTableData.php';
+    require ANAX_INSTALL_PATH . 'vendor/rcus/htmltable/webroot/includeCreateTableData.php';
 
 Set up your table with the testdata we created above.
 
@@ -86,10 +51,10 @@ Set up your table with the testdata we created above.
 
 'test' refers to the table name in the database. Then add the columns you want to include in your table in the array, where $key will be the column's title and $value is the column's name in the database.
 
-###Finally, create the table
-And now, the fun part... Get the HTML for the table! Add this to `// Create content for this page`.
+Finally, create the table. The fun part...
 
-    $page .= $table->getHTML();
+    // Get the HTMLtable
+    $table->getHTML();
 
 Well, it might not be that fun. But this line convert your table in the database to a HTML table.
 
