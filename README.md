@@ -19,6 +19,7 @@ Add [rcus/htmltable](https://packagist.org/packages/rcus/htmltable) to your comp
 Run `composer install --no-dev` or `composer update --no-dev` to get rcus/htmltable. [rcus/htmltable](https://packagist.org/packages/rcus/htmltable) require [mos/cdatabase](https://github.com/mosbth/cdatabase) and will install it for you.
 
 > Unfortunately, Composer can not get dependencies with "dev-master". If you receive an error message, edit your `composer.json` to:
+
     "require": {
         ...
         "mos/cdatabase": "dev-master",
