@@ -3,17 +3,15 @@
 // Set page to charset UTF-8
 header('Content-Type: text/html; charset=utf-8');
 
-// Get required files
-require "../vendor/mos/cdatabase/src/Database/TSQLQueryBuilderBasic.php";
-require "../vendor/mos/cdatabase/src/Database/CDatabaseBasic.php";
-require "../src/htmltable/CHTMLTable.php";
+// Get the autoloader
+$autodir = __DIR__ . '/../vendor/';             // dir to autoload.php in a stand-alone project
+if (!file_exists($autodir.'autoload.php')) {
+    $autodir = __DIR__ . '/../../../';          // dir to autoload.php as required
+}
+require $autodir.'autoload.php';
 
 // Create a new object
 $table = new rcus\HTMLTable\CHTMLTable($options);
-
-// For debugging
-$table->setVerbose(false);
-//$table->connect('debug');
 
 // Create tabledata
 require __DIR__ . '/includeCreateTableData.php';

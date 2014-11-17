@@ -11,7 +11,7 @@ if (!is_writable(__DIR__)) {
 }
 
 // Read config file
-$options = require "config_sqlite.php";
+$options = require "database_sqlite.php";
 
 // SQLite-info is setted up, continue...
 require "includeTestHTMLTable.php";
