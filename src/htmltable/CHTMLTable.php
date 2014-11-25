@@ -121,6 +121,13 @@ class CHTMLTable extends CDatabaseBasic
      */
     private function setMembers()
     {
+        $this->setOrderBy(htmlentities($app->request->getGet('orderby')), htmlentities($app->request->getGet('order'));
+        $this->itemsPerPage = (is_numeric($app->request->getGet('items'))) ? $app->request->getGet('items') : null;
+        if (is_numeric($app->request->getGet('page'))) {
+            $this->page = $app->request->getGet('page');
+            $this->startNo = ($this->page-1)*$this->itemsPerPage;
+        }
+        /* For use without ANAX
         if (isset($_GET['orderby'])) {
             if (isset($_GET['order'])) {
                 $this->setOrderBy(htmlentities($_GET['orderby']), htmlentities($_GET['order']));
@@ -136,6 +143,7 @@ class CHTMLTable extends CDatabaseBasic
             $this->page = $_GET['page'];
             $this->startNo = ($_GET['page']-1)*$this->itemsPerPage;
         }
+        */
         $this->itemsInTable = $this->select("count(*) as items")
             ->from($this->tableName)
             ->executeFetchAll()[0]
