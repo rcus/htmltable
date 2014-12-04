@@ -121,7 +121,7 @@ class CHTMLTable extends CDatabaseBasic
      */
     private function setMembers()
     {
-        $this->setOrderBy(htmlentities($app->request->getGet('orderby')), htmlentities($app->request->getGet('order'));
+        $this->setOrderBy(htmlentities($app->request->getGet('orderby')), htmlentities($app->request->getGet('order')));
         $this->itemsPerPage = (is_numeric($app->request->getGet('items'))) ? $app->request->getGet('items') : null;
         if (is_numeric($app->request->getGet('page'))) {
             $this->page = $app->request->getGet('page');
