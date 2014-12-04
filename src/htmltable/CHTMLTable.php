@@ -128,7 +128,11 @@ class CHTMLTable extends CDatabaseBasic
             $this->page = $app->request->getGet('page');
             $this->startNo = ($this->page-1)*$this->itemsPerPage;
         }
-        /* For use without ANAX
+
+        /**
+         * For use without ANAX
+         */
+        /*
         if (isset($_GET['orderby'])) {
             if (isset($_GET['order'])) {
                 $this->setOrderBy(htmlentities($_GET['orderby']), htmlentities($_GET['order']));

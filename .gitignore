@@ -2,6 +2,7 @@
 *.sqlite
 *.log
 .htsqlite.db
+report/
 
 
 # OS generated files 
