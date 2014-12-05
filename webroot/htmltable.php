@@ -14,7 +14,7 @@ $options = (file_exists(ANAX_APP_PATH.'config/'.$dsnfile))
     : require ANAX_INSTALL_PATH.'vendor/rcus/htmltable/webroot/'.$dsnfile;
 
 // Create a table object
-$table = new rcus\HTMLTable\CHTMLTable($options);
+$table = new Rcus\HTMLTable\CHTMLTable($options);
 
 // Create tabledata
 require ANAX_INSTALL_PATH . 'vendor/rcus/htmltable/webroot/includeCreateTableData.php';

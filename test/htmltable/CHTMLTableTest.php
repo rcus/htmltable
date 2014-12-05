@@ -78,8 +78,7 @@ class CHTMLTableTest extends \PHPUnit_Framework_TestCase
     public function testGetHTML($obj)
     {
         // Create a mock for $app->request->getGet()
-        /*$app->request = $this->getMockBuilder('CRequestBasic')
-            ->disableOriginalConstructor()
+        $app->request = $this->getMockBuilder('CRequestBasic')
             ->setMethods(array('getGet'))
             ->getMock();
 
@@ -91,7 +90,7 @@ class CHTMLTableTest extends \PHPUnit_Framework_TestCase
                 'items' => 8,
                 'page' => 2
             )));
-*/        
+        
         $act = $obj->getHTML();
         $this->assertInternalType('string', $act, 'getHTML() does not return string.');
 

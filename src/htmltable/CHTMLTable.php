@@ -1,6 +1,6 @@
 <?php
 
-namespace rcus\HTMLTable;
+namespace Rcus\HTMLTable;
 use Mos\Database\CDatabaseBasic;
 
 /**

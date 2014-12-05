@@ -11,7 +11,7 @@ if (!file_exists($autodir.'autoload.php')) {
 require $autodir.'autoload.php';
 
 // Create a new object
-$table = new rcus\HTMLTable\CHTMLTable($options);
+$table = new Rcus\HTMLTable\CHTMLTable($options);
 
 // Create tabledata
 require __DIR__ . '/includeCreateTableData.php';
