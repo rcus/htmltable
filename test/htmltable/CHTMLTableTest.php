@@ -1,88 +1,74 @@
 <?php
 
-// namespace Rcus\HTMLTable;
-use Anax\DI\IInjectionAware;
+namespace Rcus\HTMLTable;
+// use Anax\DI\IInjectionAware;
 
 /**
- * HTML Form elements.
+ * Test HTMLtable
  *
  */
 class CHTMLTableTest extends \PHPUnit_Framework_TestCase
 {
-    protected $options;
-
-
     /**
      * Set up database options
      *
      * @return void
      *
      */
-    protected function setUp()
+    public function setUp()
     {
-        global $options;
-        $this->options = $options;
+        // global $options;
+        $options = array(
+            'dsn'     => "sqlite::memory:",
+            'verbose' => false
+            );
+        $table = new CHTMLTable($options);
+        require __DIR__.'../../../webroot/includeCreateTableData.php';
+        $this->table = $table;
     }
-
-
 
     /**
      * Test create HTMLTable object
-     *
-     * @return object $obj The HTMLTable object
-     *
      */
     public function testCreateCHTMLTableObject()
     {
-        $obj = new \Rcus\HTMLTable\CHTMLTable($this->options);
-        $this->assertInstanceOf('\Rcus\HTMLTable\CHTMLTable', $obj, 'There is no HTMLTable object.');
-        self::assertInstanceOf('\Mos\Database\CDatabaseBasic', $obj);
-
-        return $obj;
+        $this->assertInstanceOf('\Rcus\HTMLTable\CHTMLTable', $this->table, 'There is no HTMLTable object.');
+        self::assertInstanceOf('\Mos\Database\CDatabaseBasic', $this->table);
     }
-
-
 
     /**
      * Test setTableOptions()
      *
      * @depends testCreateCHTMLTableObject
-     *
-     * @param object $obj The HTMLTable object from testCreateCHTMLTableObject()
-     * @return object $obj The HTMLTable object
-     *
      */
-    public function testSetTableOptions($obj)
+    public function testSetTableOptions()
     {
-        $obj->setTableOptions('test', array(
+        $this->table->setTableOptions('test', array(
             'ID'         => 'id',
             'Förnamn'    => 'firstname',
             'Efternamn'  => 'surname',
             'Födelsedag' => 'birthdate')
         );
-        $this->assertObjectHasAttribute('tableName', $obj);
-        return $obj;
+        $this->assertObjectHasAttribute('tableName', $this->table);
     }
-
-
 
     /**
      * Test getHTML()
      *
      * @depends testSetTableOptions
-     *
-     * @param object $obj The HTMLTable object from testCreateCHTMLTableObject()
-     * @return void
-     *
      */
-    public function testGetHTML($obj)
+    public function testGetHTML()
     {
         // Create a mock for $app->request->getGet()
-        $app->request = $this->getMockBuilder('CRequestBasic')
+        $app = $this->getMockBuilder('stdClass')
+            // ->setMethods(array('getGet'))
+            ->getMock();
+
+        $app->request = $this->getMockBuilder('stdClass')
             ->setMethods(array('getGet'))
             ->getMock();
 
-        $app->expects($this->any())
+        $app->request->expects($this->any())
             ->method('getGet')
             ->will($this->returnValue(array(
                 'orderby' => "id",
@@ -90,8 +76,15 @@ class CHTMLTableTest extends \PHPUnit_Framework_TestCase
                 'items' => 8,
                 'page' => 2
             )));
-        
-        $act = $obj->getHTML();
+
+        $_GET = array(
+            'orderby' => "id",
+            'order' => "desc",
+            'items' => 8,
+            'page' => 2
+            );
+
+        $act = $this->table->getHTML();
         $this->assertInternalType('string', $act, 'getHTML() does not return string.');
     }
 

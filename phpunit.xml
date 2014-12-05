@@ -9,6 +9,7 @@
 <filter>
   <blacklist>
     <directory>vendor</directory>
+    <directory>webroot</directory>
   </blacklist>
 </filter>
 
