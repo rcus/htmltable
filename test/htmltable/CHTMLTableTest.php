@@ -93,8 +93,6 @@ class CHTMLTableTest extends \PHPUnit_Framework_TestCase
         
         $act = $obj->getHTML();
         $this->assertInternalType('string', $act, 'getHTML() does not return string.');
-
-
     }
 
 }
