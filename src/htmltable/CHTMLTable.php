@@ -169,6 +169,7 @@ class CHTMLTable extends CDatabaseBasic
     public function getHTML()
     {
         $this->setMembers();
+        return;
         $rows = $this->getRows();
 
         $html = "<div class='htmltable'>\n";
