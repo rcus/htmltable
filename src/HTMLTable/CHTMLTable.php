@@ -122,20 +122,20 @@ class CHTMLTable extends CDatabaseBasic
     private function setMembers()
     {
         /**
-         * For use without ANAX
+         * For use with ANAX
          */
-/*        global $app;
-        $this->setOrderBy(htmlentities($app->request->getGet('orderby')), htmlentities($app->request->getGet('order')));
-        $this->itemsPerPage = (is_numeric($app->request->getGet('items'))) ? $app->request->getGet('items') : null;
-        if (is_numeric($app->request->getGet('page'))) {
-            $this->page = $app->request->getGet('page');
+        global $di;
+        $this->setOrderBy(htmlentities($di->request->getGet('orderby')), htmlentities($di->request->getGet('order')));
+        $this->itemsPerPage = (is_numeric($di->request->getGet('items'))) ? $di->request->getGet('items') : $this->itemsPerPage;
+        if (is_numeric($di->request->getGet('page'))) {
+            $this->page = $di->request->getGet('page');
             $this->startNo = ($this->page-1)*$this->itemsPerPage;
         }
-*/
+
         /**
          * For use without ANAX
          */
-        if (isset($_GET['orderby'])) {
+/*        if (isset($_GET['orderby'])) {
             if (isset($_GET['order'])) {
                 $this->setOrderBy(htmlentities($_GET['orderby']), htmlentities($_GET['order']));
             }
@@ -150,7 +150,7 @@ class CHTMLTable extends CDatabaseBasic
             $this->page = $_GET['page'];
             $this->startNo = ($_GET['page']-1)*$this->itemsPerPage;
         }
-
+*/
         /**
          * And back together
          */
@@ -169,7 +169,6 @@ class CHTMLTable extends CDatabaseBasic
     public function getHTML()
     {
         $this->setMembers();
-        return;
         $rows = $this->getRows();
 
         $html = "<div class='htmltable'>\n";
