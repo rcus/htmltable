@@ -124,18 +124,18 @@ class CHTMLTable extends CDatabaseBasic
         /**
          * For use with ANAX
          */
-        global $di;
+/*        global $di;
         $this->setOrderBy(htmlentities($di->request->getGet('orderby')), htmlentities($di->request->getGet('order')));
         $this->itemsPerPage = (is_numeric($di->request->getGet('items'))) ? $di->request->getGet('items') : $this->itemsPerPage;
         if (is_numeric($di->request->getGet('page'))) {
             $this->page = $di->request->getGet('page');
             $this->startNo = ($this->page-1)*$this->itemsPerPage;
         }
-
+*/
         /**
          * For use without ANAX
          */
-/*        if (isset($_GET['orderby'])) {
+        if (isset($_GET['orderby'])) {
             if (isset($_GET['order'])) {
                 $this->setOrderBy(htmlentities($_GET['orderby']), htmlentities($_GET['order']));
             }
@@ -150,7 +150,7 @@ class CHTMLTable extends CDatabaseBasic
             $this->page = $_GET['page'];
             $this->startNo = ($_GET['page']-1)*$this->itemsPerPage;
         }
-*/
+
         /**
          * And back together
          */
