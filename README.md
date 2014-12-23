@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/rcus/htmltable.svg?branch=master)](https://travis-ci.org/rcus/htmltable)
+[![Build Status](https://travis-ci.org/rcus/htmltable.svg?branch=master)](https://travis-ci.org/rcus/htmltable) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/rcus/htmltable/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/rcus/htmltable/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/rcus/htmltable/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/rcus/htmltable/?branch=master)
 
 HTMLtable
 =========
