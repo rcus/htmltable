@@ -1,8 +1,9 @@
-language: php
-php:
-    - 5.5
-    - 5.4
-    - hhvm
+language: php
+php:
+    - 5.5
+    - 5.4
+    - hhvm
 
 script:
+    - composer install
     - phpunit --bootstrap test/bootstrap.php test
