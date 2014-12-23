@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/rcus/htmltable.svg?branch=master)](https://travis-ci.org/rcus/htmltable)
+
 HTMLtable
 =========
 
